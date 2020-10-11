@@ -1,31 +1,31 @@
 # arch-mingw
-Docker image for `MinGW-w64 build environment` based on [Arch Linux][4]. The image provides simple cross-compilation environment for windows 32/64bit builds. Amongst other MinGW binaries/libraries image includes `GCC, CMake, GNU Autotools, Meson, FFMPEG, Qt5, KF5, Boost`.
+Docker image for `MinGW-w64 build environment` based on [Arch Linux][4]. The image provides simple cross-compilation environment for windows 32/64bit builds.
 
-This script was inspired by [mdimura/docker-mingw-qt5][5]
+This script was inspired by [maxrd2/arch-mingw][5]
 
-# Building docker image manually
+## Building docker image manually
 You can pull latest docker image with:
 ```bash
-sudo docker pull maxrd2/arch-mingw
+sudo docker pull shugaoye/arch-mingw
 ```
 
 If you prefer to build it on your machine:
 ```bash
-git clone https://github.com/maxrd2/arch-mingw.git && cd arch-mingw
-sudo docker build -t maxrd2/arch-mingw -f Dockerfile .
+git clone https://github.com/shugaoye/docker-arch-mingw.git && cd docker-arch-mingw
+sudo docker build -t shugaoye/arch-mingw -f Dockerfile .
 ```
 
-# Usage
+## Usage
 Start the docker container (replace `some-local-path` with dir to mount as docker home):
 ```bash
-sudo docker run -v some-local-path:/home/devel -it maxrd2/arch-mingw /bin/bash
+.run_image.sh
 ```
 
 Compile your application:
 ```bash
 git clone 'https://github.com/maxrd2/DivvyDroid.git'
 mkdir DivvyDroid/build
-sudo docker run -v DivvyDroid:/home/devel --rm -it maxrd2/arch-mingw /bin/bash -c "\
+sudo docker run -v DivvyDroid:/home/devel --rm -it shugaoye/docker-arch-mingw /bin/bash -c "\
 	cd build && \
 	i686-w64-mingw32-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr .. && \
 	make -j\$(nproc) nsis \
@@ -34,7 +34,14 @@ ls -l build # windows binaries
 ```
 cmake, configure, etc commands should be prefixed by i686/x86_64 for 32/64bit builds e.g. `i686-w64-mingw32-cmake`, `x86_64-w64-mingw32-configure`
 
-# Dependencies
+## Build a MINGW package
+```bash
+git clone https://github.com/msys2/MINGW-packages.git
+cd MINGW-packages/mingw-w64-argon2/
+makepkg-mingw
+```
+
+## Dependencies
 Extra/missing dependencies can be installed from [AUR][1]
 ```bash
 pacaur -S mingw-w64-rapidjson
@@ -45,4 +52,4 @@ If mingw- version of the needed libarary is not available in AUR, you can add it
 [2]: https://wiki.archlinux.org/index.php/creating_packages
 [3]: https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=mingw-w64-rapidjson
 [4]: https://github.com/archlinux/archlinux-docker
-[5]: https://github.com/mdimura/docker-mingw-qt5
+[5]: https://github.com/maxrd2/arch-mingw
