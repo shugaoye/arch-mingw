@@ -15,11 +15,10 @@ curl -s 'https://www.archlinux.org/mirrorlist/?country=CN&protocol=http&protocol
 cat >>/etc/pacman.conf <<EOF
 [multilib]
 Include = /etc/pacman.d/mirrorlist
-[maxrd2]
+[shugaoye]
 SigLevel = Optional TrustAll
 EOF
-[[ ! -z "$use_cache" ]] && echo 'Server = http://'$use_cache':15678/pacman/$repo' >>/etc/pacman.conf
-echo 'Server = https://github.com/maxrd2/arch-repo/releases/download/continuous' >>/etc/pacman.conf
+echo 'Server = https://github.com/shugaoye/MINGW-packages/releases/download/$arch' >>/etc/pacman.conf
 # setup pacman
 pacman-key --init
 pacman-key --populate archlinux
