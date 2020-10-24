@@ -18,7 +18,6 @@ cat >>/etc/pacman.conf <<EOF
 SigLevel = Optional TrustAll
 EOF
 echo 'Server = https://github.com/shugaoye/MINGW-packages/releases/download/$arch' >>/etc/pacman.conf
-pacman-db-upgrade
 
 # Reasonable defaults if no USER_ID/GROUP_ID environment variables are set.
 if [ -z ${USER_ID+x} ]; then USER_ID=1000; fi

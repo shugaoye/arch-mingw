@@ -2,7 +2,7 @@
 # https://github.com/shugaoye/docker-arch-mingw
 # Based on ArchLinux image - https://github.com/archlinux/archlinux-docker
 
-FROM shugaoye/arch-mingw:base
+FROM shugaoye/arch-mingw:dev
 
 LABEL maintainer="shugaoye@yahoo.com"
 
@@ -11,7 +11,7 @@ RUN /root/setup-maxrd2.sh
 
 RUN pacman -Sy --noconfirm --noprogressbar \
 	mingw-w64-toolchain mingw-w64-cmake mingw-w64-configure mingw-w64-pkg-config \
-	mingw-w64-ffmpeg mingw-w64-qt5 mingw-w64-kf5 nsis
+	mingw-w64-qt5
 
 RUN rm -rf \
 	/usr/share/{doc,man}/* \
