@@ -8,7 +8,7 @@ LABEL maintainer="shugaoye@yahoo.com"
 
 #RUN pacman -S --noconfirm --noprogressbar pacaur
 RUN pacman -S --noconfirm --noprogressbar \
-	sudo imagemagick make git binutils patch base-devel python2 wget curl \
+	sudo imagemagick make git binutils patch base-devel python2 python3 wget curl \
 	expac yajl vim openssh rsync lzop unzip bash-completion ncdu jq
 
 #USER devel
