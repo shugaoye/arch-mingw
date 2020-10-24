@@ -6,8 +6,16 @@ FROM archlinux/base:latest
 
 LABEL maintainer="shugaoye@yahoo.com"
 
-COPY setup.sh /root/
-RUN /root/setup.sh
+COPY utils/setup-pacman.sh /root/
+RUN /root/setup-pacman.sh
+
+RUN pacman-key --init
+RUN pacman-key --populate archlinux
+RUN pacman -Sy archlinux-keyring pacman --noconfirm --noprogressbar --needed --quiet
+RUN pacman-db-upgrade
+
+#RUN info "Updating system"
+RUN pacman -Su --noconfirm --noprogressbar --quiet
 
 #USER devel
 #ENV HOME=/home/devel
@@ -21,4 +29,4 @@ COPY utils/bashrc /root/bashrc
 COPY utils/windeployqt /usr/local/bin/windeployqt
 COPY utils/makepkg-mingw /usr/local/bin/makepkg-mingw
 COPY utils/makepkg_mingw64.conf /etc/makepkg_mingw64.conf
-ENTRYPOINT ["/root/docker_entrypoint.sh"]
+#ENTRYPOINT ["/root/docker_entrypoint.sh"]

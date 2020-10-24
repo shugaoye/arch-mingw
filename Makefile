@@ -1,5 +1,5 @@
 DOCKER = docker
-IMAGE = shugaoye/arch-mingw:latest
+IMAGE = shugaoye/arch-mingw:base
 VOL1 ?= $(HOME)/vol1
 VOL2 ?= $(HOME)/.ccache
 
