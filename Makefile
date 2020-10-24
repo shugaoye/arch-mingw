@@ -1,5 +1,5 @@
 DOCKER = docker
-IMAGE = shugaoye/arch-mingw:dev
+IMAGE = shugaoye/arch-mingw:mingw-w64
 VOL1 ?= $(HOME)/vol1
 VOL2 ?= $(HOME)/.ccache
 

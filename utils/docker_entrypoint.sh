@@ -13,6 +13,13 @@ set -e
 #  docker run -ti -e USER_ID=$(id -u) -e GROUP_ID=$(id -g) imagename bash
 #
 
+cat >>/etc/pacman.conf <<EOF
+[shugaoye]
+SigLevel = Optional TrustAll
+EOF
+echo 'Server = https://github.com/shugaoye/MINGW-packages/releases/download/$arch' >>/etc/pacman.conf
+pacman-db-upgrade
+
 # Reasonable defaults if no USER_ID/GROUP_ID environment variables are set.
 if [ -z ${USER_ID+x} ]; then USER_ID=1000; fi
 if [ -z ${GROUP_ID+x} ]; then GROUP_ID=1000; fi

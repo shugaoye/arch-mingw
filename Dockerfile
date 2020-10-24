@@ -6,10 +6,18 @@ FROM shugaoye/arch-mingw:base
 
 LABEL maintainer="shugaoye@yahoo.com"
 
-#RUN pacman -S --noconfirm --noprogressbar pacaur
-RUN pacman -S --noconfirm --noprogressbar \
-	sudo imagemagick make git binutils patch base-devel python2 wget curl \
-	expac yajl vim openssh rsync lzop unzip bash-completion ncdu jq
+COPY utils/setup-maxrd2.sh /root/
+RUN /root/setup-maxrd2.sh
+
+RUN pacman -Sy --noconfirm --noprogressbar \
+	mingw-w64-toolchain mingw-w64-cmake mingw-w64-configure mingw-w64-pkg-config \
+	mingw-w64-ffmpeg mingw-w64-qt5 mingw-w64-kf5 nsis
+
+RUN rm -rf \
+	/usr/share/{doc,man}/* \
+	/tmp/* \
+	/var/{tmp,cache/pacman/pkg,lib/pacman/sync}/* \
+	/home/devel/.cache
 
 #USER devel
 #ENV HOME=/home/devel
@@ -23,4 +31,4 @@ COPY utils/bashrc /root/bashrc
 COPY utils/windeployqt /usr/local/bin/windeployqt
 COPY utils/makepkg-mingw /usr/local/bin/makepkg-mingw
 COPY utils/makepkg_mingw64.conf /etc/makepkg_mingw64.conf
-#ENTRYPOINT ["/root/docker_entrypoint.sh"]
+ENTRYPOINT ["/root/docker_entrypoint.sh"]

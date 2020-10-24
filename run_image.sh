@@ -8,7 +8,7 @@ GROUPNAME=`id -gn`
 if [ -n "$1" ]; then
         IMAGE=$1
 else
-        IMAGE=shugaoye/arch-mingw:dev
+        IMAGE=shugaoye/arch-mingw:mingw-w64
 fi
 
 vol1="$(cd ..; pwd)"
